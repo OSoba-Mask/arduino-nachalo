@@ -1,0 +1,27 @@
+void setup() {
+ Serial.begin(9600);
+ pinMode(7, OUTPUT);
+ pinMode(A0, INPUT);
+ pinMode(A1, INPUT);
+}
+
+void loop() {
+
+ int photores = analogRead(A0);
+ int analoge = analogRead(A1);
+ 
+ if (photores > analoge) {
+  digitalWrite(7, HIGH);
+ }
+ else {
+  digitalWrite(7, LOW);
+ }
+
+ Serial.print("Photo:");
+ Serial.print(photores);
+ Serial.print(", ");
+ Serial.print("Ptr:");
+ Serial.print(analoge);
+ Serial.println(" help me");
+}
+

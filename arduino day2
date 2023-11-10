@@ -1,0 +1,184 @@
+int red = 7;
+int yellow = 4;
+int green = 2;
+
+void setup(){
+  
+  pinMode(red, OUTPUT);
+  pinMode(yellow, OUTPUT);
+  pinMode(green,  OUTPUT);
+  
+}
+void loop(){
+
+ digitalWrite(red, HIGH);
+ delay(7500);
+ digitalWrite(red,  LOW);
+  
+  digitalWrite(yellow, HIGH);
+ delay(1000);
+  digitalWrite(yellow,  LOW);
+ delay(500);
+
+  digitalWrite(yellow, HIGH);
+ delay(1000);
+  digitalWrite(yellow,  LOW);
+ delay(500);
+
+  digitalWrite(yellow, HIGH);
+ delay(1000);
+  digitalWrite(yellow,  LOW);
+ delay(500);
+  
+  digitalWrite(yellow, HIGH);
+ delay(1000);
+  digitalWrite(yellow, LOW);
+ delay(500);
+  
+  digitalWrite(yellow, HIGH);
+ delay(1000);
+  digitalWrite(yellow, LOW);
+ delay(500);
+  
+ digitalWrite(green, HIGH);
+ delay(10000);
+ digitalWrite(green,  LOW);
+ //  
+ digitalWrite(yellow, HIGH);
+ delay(1000);
+  digitalWrite(yellow,  LOW);
+ delay(500);
+
+  digitalWrite(yellow, HIGH);
+ delay(1000);
+  digitalWrite(yellow,  LOW);
+ delay(500);
+
+  digitalWrite(yellow, HIGH);
+ delay(1000);  
+  digitalWrite(yellow, LOW);
+ delay(500);
+  
+  digitalWrite(yellow, HIGH);
+ delay(1000);
+  digitalWrite(yellow, LOW);
+ delay(500);
+
+  digitalWrite(yellow, HIGH);
+ delay(1000);
+  digitalWrite(yellow, LOW);
+ delay(500);
+  
+  
+}
+BUTTON
+
+int red = 7;
+int yellow = 4;
+int green = 2;
+int button = 13;
+
+void setup(){
+  
+  pinMode(red, OUTPUT);
+  pinMode(yellow, OUTPUT);
+  pinMode(green,  OUTPUT);
+  pinMode(button, INPUT);
+  
+}
+void loop(){
+  if (digitalRead(button) == HIGH) {
+ digitalWrite(yellow, HIGH);
+ digitalWrite(green, HIGH);
+ digitalWrite(red, HIGH);
+ }
+
+ else {
+ digitalWrite(yellow, LOW);
+ digitalWrite(green, LOW);
+ digitalWrite(red, LOW);
+ }
+
+}
+RGBLED (RGBLed Arduino library)
+#include <RGBLed.h>
+
+int red = 11;
+int blue = 10;
+int green = 9;
+RGBLed led(red, green, blue, RGBLed::COMMON_ANODE);
+
+void setup(){
+  
+  pinMode(red, OUTPUT);
+  pinMode(blue, OUTPUT);
+  pinMode(green,  OUTPUT);
+  
+  
+}
+void loop(){
+  led.setColor(255, 0, 0);
+  led.setColor(0, 255, 0);
+  led.brightness(5);
+  ;
+
+}
+termometr and others
+#include <TroykaThermometer.h>
+#include <QuadDisplay2.h>
+
+QuadDisplay qd(9, 5, 7);
+
+TroykaThermometer thermometer(A5);
+
+int trigPin = 10; 
+int echoPin = 11;
+ 
+void setup()
+{
+  Serial.begin(9600);
+  qd.begin();
+  pinMode(0, OUTPUT);
+  pinMode(trigPin, OUTPUT); 
+  pinMode(echoPin, INPUT);
+}
+ 
+void loop()
+{
+  thermometer.read();
+  int t = thermometer.getTemperatureC();
+ 
+  Serial.print("Temperature is ");
+  Serial.print(thermometer.getTemperatureC());
+  Serial.println(" C");
+  delay(100);
+
+  
+  qd.displayTemperatureC(t);
+  delay(1000);
+
+  int duration, distance;
+  
+  digitalWrite(trigPin, LOW); 
+  delayMicroseconds(2); 
+  
+  digitalWrite(trigPin, HIGH);
+   
+  delayMicroseconds(10); 
+  digitalWrite(trigPin, LOW); 
+  
+  duration = pulseIn(echoPin, HIGH); 
+  
+  distance = duration / 58;
+  
+  Serial.print(distance); 
+  Serial.println(" cm"); 
+  delay(100);
+
+  if (t < 0 && distance > 200) {
+    qd.displayDigits(QD_O, QD_f, QD_f, QD_NONE);
+  }
+  else {
+    qd.displayDigits(QD_O, QD_n, QD_NONE, QD_NONE);
+  }
+}
